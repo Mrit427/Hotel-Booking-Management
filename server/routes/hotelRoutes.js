@@ -1,9 +1,13 @@
 import express from "express";
-import { protect } from "../middleware/authmiddleWare.js";
-import { registerHotel } from "../controllers/hotelController.js";
+import { protect, isAdmin } from "../middleware/authMiddleware.js";
+import { registerHotel, getOwnerHotels } from "../controllers/hotelControllers.js";
 
 const hotelRouter = express.Router();
 
-hotelRouter.post('/', protect, registerHotel);
+// Logic: Any user can attempt registration, but controller blocks non-admins
+hotelRouter.post('/register', protect, registerHotel);
 
-export default hotelRouter;
+// Logic: Only authorized admins can see their hotel list for the room form
+hotelRouter.get('/owner-list', protect, isAdmin, getOwnerHotels);
+
+export default hotelRouter;  

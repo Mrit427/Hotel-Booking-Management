@@ -18,3 +18,4 @@ const HotelRg = () => {
 }
 
 export default HotelRg
+

@@ -12,15 +12,41 @@ const Sidebar = () => {
 
     ]
   return (
-    <div className='md:w-64 w-16 border-r h-full text-base border-gray-300
-    pt-4 flex flex-col transition-all duration-300'>
-        {sidebarLinks.map((item,index)=>(
-            <NavLink to={item.path} key={index} end='/owner' className={({isActive})=>`flex items-center py-3 px-4 md:px-8 gap-3 
-            ${isActive? "border-r-4 md:border-r-[6px] bg-blue-600/10 border-blue-600 text-blue-600" : "hover:bg-gray-100/90 border-white text-gray-700"}`}>
-                <img src={item.icon} alt={item.name} className='min-h-6 min-w-6'/>
-                <p className='md:block hidden text-center'>{item.name}</p>
-            </NavLink>
-        ))}
+   <div className='min-h-screen bg-white border-r border-gray-200'>
+      
+      <div className='flex flex-col text-gray-600'>
+        
+        {/* Dashboard Link */}
+        <NavLink to='/owner' end className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer transition-all ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary text-black font-bold' : ''}`}>
+            <img src={assets.dashboardIcon} alt="" className='w-5' />
+            <p className='hidden md:block'>Dashboard</p>
+        </NavLink>
+
+        {/* Add Room Link */}
+        <NavLink to='/owner/add-room' className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer transition-all ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary text-black font-bold' : ''}`}>
+            <img src={assets.addIcon} alt="" className='w-5' />
+            <p className='hidden md:block'>Add Room</p>
+        </NavLink>
+
+        {/* List Room Link */}
+        <NavLink to='/owner/list-room' className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer transition-all ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary text-black font-bold' : ''}`}>
+            <img src={assets.listIcon} alt="" className='w-5' />
+            <p className='hidden md:block'>List Room</p>
+        </NavLink>
+
+        {/* --- NEW: Add Offer Link --- */}
+        <NavLink to='/owner/add-offer' className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer transition-all ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary text-black font-bold' : ''}`}>
+            <img src={assets.totalBookingIcon} alt="" className='w-5' />
+            <p className='hidden md:block'>Add Offer</p>
+        </NavLink>
+
+        {/* Reviews Link */}
+        <NavLink to='/owner/reviews' className={({isActive}) => `flex items-center gap-3 py-3.5 px-3 md:px-9 md:min-w-72 cursor-pointer transition-all ${isActive ? 'bg-[#F2F3FF] border-r-4 border-primary text-black font-bold' : ''}`}>
+            <img src={assets.badgeIcon} alt="" className='w-5' />
+            <p className='hidden md:block'>Reviews & Ratings</p>
+        </NavLink>
+
+      </div>
     </div>
   )
 }

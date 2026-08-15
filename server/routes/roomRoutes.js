@@ -1,14 +1,29 @@
 import express from "express";
 import upload from "../middleware/uploadMiddleware.js";
-import { protect } from "../middleware/authmiddleWare.js";
-import { createRoom, getOwnerRooms, getRooms, toggleRoomAvailability } from "../controllers/roomController.js";
-
+import { protect, isAdmin } from "../middleware/authMiddleware.js";
+import { 
+    getRooms, 
+    getOwnerRooms, 
+    createRoom, 
+    deleteRoom, 
+    getRoomById, 
+    toggleRoomAvailability 
+} from "../controllers/roomControllers.js";
 
 const roomRouter = express.Router();
- 
-roomRouter.post('/', upload.array("images", 4), protect, createRoom)
-roomRouter.get('/', getRooms)
-roomRouter.get('/owner', protect, getOwnerRooms)
-roomRouter.post('/toggle-availability', protect, toggleRoomAvailability)
+
+// 1. Static Protected Routes (MUST BE FIRST)
+roomRouter.get('/owner', protect, isAdmin, getOwnerRooms);
+
+// 2. Public Routes
+roomRouter.get('/', getRooms);
+
+// 3. Dynamic Routes (MUST BE LAST)
+roomRouter.get('/:id', getRoomById); 
+
+// 4. Other Admin Actions
+roomRouter.post('/', upload.array("images", 4), protect, isAdmin, createRoom);
+roomRouter.delete('/:roomId', protect, isAdmin, deleteRoom);
+roomRouter.post('/toggle-availability', protect, isAdmin, toggleRoomAvailability);
 
 export default roomRouter;

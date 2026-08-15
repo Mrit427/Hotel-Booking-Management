@@ -7,18 +7,29 @@ import AllRooms from './pages/AllRooms';
 import RoomDetails from './pages/RoomDetails';
 import MyBookings from './pages/MyBookings';
 import HotelRg from './Component/HotelRg';
+
+import HotelReg from './Component/HotelReg';
 import Layout from './pages/hotelOwner/Layout';
 import Dashboard from './pages/hotelOwner/Dashboard';
 import AddRoom from './pages/hotelOwner/AddRoom';
 import ListRoom from './pages/hotelOwner/ListRoom';
+import {Toaster} from 'react-hot-toast'
+import { useAppContext } from './context/AppContext';
+import AllReviews from './pages/hotelOwner/AllReviews';
+import AddOffer from './pages/hotelOwner/AddOffer';
+
+
+
 const App = () => {
 
   const isOwnerPath= useLocation().pathname.includes("owner");
+  const {showHotelReg} = useAppContext();
 
   return (
     <div>
+      <Toaster/>
      {!isOwnerPath && <Navbar/>}
-     { false && <HotelRg/>}
+     { showHotelReg && <HotelReg/>}
      <div className='min-h-[70vh]'>
       <Routes>
        <Route  path='/' element={<Home/>}/>
@@ -29,6 +40,8 @@ const App = () => {
           <Route index element={<Dashboard />} />
           <Route path="add-room" element={<AddRoom/>}/>
           <Route path='list-room' element={<ListRoom/>}/>
+          <Route path="add-offer" element={<AddOffer />} /> 
+          <Route path="reviews" element={<AllReviews />} /> 
        </Route>
       </Routes>
      </div>
